@@ -1,226 +1,693 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treinamento Hacker Kids</title>
+
+<title>Hacker Kids | Terminal</title>
 
 <style>
-body {
-    background-color: #000;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    text-align: center;
-    padding: 10px;
+:root {
+    --green: #00ff66;
+    --dark-green: #003b1c;
+    --background: #020503;
+    --panel: #050b07;
 }
 
-/* RESPONSIVO */
-h1 {
-    font-size: clamp(18px, 4vw, 32px);
-    text-shadow: 0 0 10px #00ff00;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 20px;
+    background: var(--background);
+    color: var(--green);
+    font-family: "Courier New", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: clamp(22px, 4vw, 34px);
+    text-shadow: 0 0 12px var(--green);
+}
+
+.header p {
+    color: #78bd91;
+    font-size: 13px;
+}
+
+.terminal-box {
+    border: 1px solid var(--green);
+    border-radius: 8px;
+    background: var(--panel);
+    box-shadow: 0 0 20px #00ff6622;
+    overflow: hidden;
+}
+
+.terminal-header {
+    background: var(--dark-green);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+}
+
+.status {
+    color: #00ff66;
 }
 
 .terminal {
-    border: 2px solid #00ff00;
-    padding: 10px;
-    margin-top: 20px;
-    height: 30vh;
-    min-height: 200px;
-    max-height: 400px;
+    height: min(65vh, 600px);
+    min-height: 300px;
     overflow-y: auto;
+    padding: 20px;
     text-align: left;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
 }
 
-/* TECLADO */
-#keyboard {
-    margin-top: 20px;
+.terminal p {
+    margin: 4px 0;
+}
+
+.system {
+    color: #00cfff;
+}
+
+.error {
+    color: #ff5555;
+}
+
+.warning {
+    color: #ffff55;
+}
+
+.success {
+    color: #00ff66;
+}
+
+.muted {
+    color: #779080;
+}
+
+.command {
+    color: #ffffff;
+}
+
+.input-line {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
 }
 
-.row {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+.prompt {
+    color: var(--green);
+    white-space: nowrap;
 }
 
-/* TECLAS */
-.key {
-    border: 1px solid #00ff00;
-    padding: 10px;
-    margin: 2px;
-    min-width: 35px;
+#commandInput {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    width: 100%;
+    caret-color: var(--green);
+}
+
+.footer {
     text-align: center;
-    border-radius: 5px;
-    transition: 0.2s;
-    font-size: clamp(10px, 2vw, 14px);
+    margin-top: 15px;
+    color: #54715d;
+    font-size: 11px;
 }
 
-/* TAMANHOS ESPECIAIS */
-.wide { min-width: 70px; }
-.wider { min-width: 100px; }
-.space { min-width: 200px; }
-
-.key.active {
-    background-color: #00ff00;
-    color: #000;
-    box-shadow: 0 0 10px #00ff00;
+#loginScreen {
+    margin: 20px auto;
+    max-width: 400px;
+    border: 1px solid var(--green);
+    padding: 25px;
+    border-radius: 8px;
+    background: var(--panel);
 }
 
-/* CURSOR */
-#cursor {
-    animation: piscar 1s infinite;
+#loginScreen input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: #000;
+    border: 1px solid var(--dark-green);
+    color: var(--green);
+    font-family: inherit;
+    outline: none;
 }
 
-@keyframes piscar {
-    0% { opacity: 1; }
+#loginScreen button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    color: black;
+    background: var(--green);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes blink {
     50% { opacity: 0; }
-    100% { opacity: 1; }
+}
+
+.cursor {
+    animation: blink 1s infinite;
+}
+
+@media(max-width: 600px) {
+    body {
+        padding: 8px;
+        align-items: flex-start;
+    }
+
+    .header {
+        margin-bottom: 12px;
+    }
+
+    .terminal {
+        height: 65vh;
+        min-height: 350px;
+        padding: 12px;
+        font-size: 12px;
+    }
+
+    .terminal-header {
+        font-size: 10px;
+        padding: 10px;
+    }
+
+    #commandInput {
+        font-size: 16px;
+    }
+
+    #loginScreen {
+        padding: 18px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<h1>💻 Treinamento Hacker Kids</h1>
-<p>Pressione teclas para aprender 👇</p>
+<div class="container">
 
-<div class="terminal" id="terminal">
-    <p>> Sistema iniciado...</p>
+    <header class="header">
+        <h1>💻 HACKER KIDS</h1>
+        <p>AMBIENTE DE TREINAMENTO DIGITAL</p>
+    </header>
+
+    <!-- LOGIN -->
+    <div id="loginScreen">
+
+        <h3>🔐 AUTENTICAÇÃO DO SISTEMA</h3>
+
+        <p class="muted">Identifique-se para continuar.</p>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Login"
+            autocomplete="username"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Senha"
+            autocomplete="current-password"
+        >
+
+        <button onclick="login()">ENTRAR NO SISTEMA</button>
+
+        <p id="loginMessage" class="error"></p>
+
+        <p class="muted">
+            Acesso demonstrativo: lorran / kids2026
+        </p>
+
+    </div>
+
+    <!-- TERMINAL -->
+    <div id="terminalScreen" class="hidden">
+
+        <div class="terminal-box">
+
+            <div class="terminal-header">
+                <span>HACKER-KIDS@SYSTEM:~</span>
+                <span class="status">● ONLINE</span>
+            </div>
+
+            <div class="terminal" id="terminal">
+
+                <p class="system">Inicializando sistema...</p>
+                <p class="success">Sistema carregado com sucesso.</p>
+                <p>Bem-vindo ao Hacker Kids!</p>
+                <p class="muted">Digite ? para consultar os comandos.</p>
+
+                <div class="input-line">
+                    <span class="prompt">HACKER-KIDS:~$</span>
+                    <input
+                        type="text"
+                        id="commandInput"
+                        autocomplete="off"
+                        autofocus
+                        spellcheck="false"
+                        aria-label="Digite um comando"
+                    >
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        ADPS TECH SOLUTIONS | HACKER KIDS EDUCATIONAL PROJECT
+    </footer>
+
 </div>
 
-<div id="keyboard"></div>
-
 <script>
-const keyboard = document.getElementById("keyboard");
+
+// ===============================
+// CONFIGURAÇÃO DO SISTEMA
+// ===============================
+
+const LOGIN = "lorran";
+const SENHA = "kids2026";
+
+const loginScreen = document.getElementById("loginScreen");
+const terminalScreen = document.getElementById("terminalScreen");
 const terminal = document.getElementById("terminal");
+const input = document.getElementById("commandInput");
 
-// Layout completo
-const layout = [
-["ESC","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12"],
-["`","1","2","3","4","5","6","7","8","9","0","-","=","BACKSPACE"],
-["TAB","Q","W","E","R","T","Y","U","I","O","P","[","]","\\"],
-["CAPS","A","S","D","F","G","H","J","K","L",";","'","ENTER"],
-["SHIFT","Z","X","C","V","B","N","M",",",".","/","SHIFT"],
-["CTRL","WIN","ALT","SPACE","ALT","FN","CTRL"],
-["↑"],
-["←","↓","→"]
-];
+let usuarioLogado = false;
 
-// Criar teclado
-layout.forEach(rowKeys => {
-    const row = document.createElement("div");
-    row.classList.add("row");
+// ===============================
+// LOGIN
+// ===============================
 
-    rowKeys.forEach(key => {
-        let keyDiv = document.createElement("div");
-        keyDiv.classList.add("key");
-        keyDiv.innerText = key;
-        keyDiv.id = "key-" + key;
+function login() {
 
-        // tamanhos especiais
-        if (["BACKSPACE","SHIFT","ENTER"].includes(key)) keyDiv.classList.add("wider");
-        if (["CTRL","ALT","TAB","CAPS"].includes(key)) keyDiv.classList.add("wide");
-        if (key === "SPACE") keyDiv.classList.add("space");
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value;
 
-        row.appendChild(keyDiv);
-    });
+    if (user === LOGIN && pass === SENHA) {
 
-    keyboard.appendChild(row);
+        usuarioLogado = true;
+
+        loginScreen.classList.add("hidden");
+        terminalScreen.classList.remove("hidden");
+
+        adicionarLinha("Autenticação aprovada!", "success");
+        adicionarLinha("Usuário: " + user, "system");
+        adicionarLinha("Bem-vindo ao terminal Hacker Kids.", "success");
+        adicionarLinha("Digite ? para visualizar os comandos.", "muted");
+
+        input.focus();
+
+    } else {
+
+        document.getElementById("loginMessage").textContent =
+            "Login ou senha incorretos!";
+
+    }
+}
+
+// ===============================
+// ENTER NO LOGIN
+// ===============================
+
+document.getElementById("password").addEventListener("keydown", e => {
+    if (e.key === "Enter") login();
 });
 
+document.getElementById("username").addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+        document.getElementById("password").focus();
+    }
+});
+
+// ===============================
 // TERMINAL
-function log(msg) {
-    let p = document.createElement("p");
-    p.innerText = "> " + msg;
-    terminal.appendChild(p);
+// ===============================
+
+function adicionarLinha(texto, classe = "") {
+
+    const p = document.createElement("p");
+
+    p.textContent = texto;
+    if (classe) p.className = classe;
+
+    const linha = terminal.querySelector(".input-line");
+
+    terminal.insertBefore(p, linha);
+
     terminal.scrollTop = terminal.scrollHeight;
 }
 
-// INPUT
-let inputAtual = "";
-let linha = document.createElement("p");
-linha.innerHTML = "> <span id='input'></span><span id='cursor'>█</span>";
-terminal.appendChild(linha);
+// ===============================
+// AJUDA PRINCIPAL
+// ===============================
 
-const inputSpan = document.getElementById("input");
+function ajuda() {
 
-// SENHA
-const nomeSecreto = "LORRAN";
+    const comandos = [
+        ["?", "Exibe todos os comandos e funções do teclado."],
+        ["help", "Mostra a central de ajuda."],
+        ["clear", "Limpa o terminal."],
+        ["whoami", "Mostra o usuário conectado."],
+        ["date", "Exibe a data e hora do computador."],
+        ["time", "Exibe o horário atual."],
+        ["about", "Informações sobre o Hacker Kids."],
+        ["version", "Versão do sistema."],
+        ["neofetch", "Exibe informações simuladas do sistema."],
+        ["network", "Simula um diagnóstico de rede."],
+        ["ping", "Simula um teste de conectividade."],
+        ["ipconfig", "Exibe um IP fictício de laboratório."],
+        ["scan", "Simula uma verificação educativa."],
+        ["security", "Exibe dicas de segurança digital."],
+        ["password", "Exibe dicas sobre senhas seguras."],
+        ["matrix", "Inicia uma animação textual."],
+        ["upgrade", "Executa uma atualização simulada."],
+        ["logout", "Encerra a sessão."]
+    ];
 
-// UPGRADE
+    adicionarLinha("========== CENTRAL DE AJUDA ==========", "success");
+
+    adicionarLinha("COMANDOS DISPONÍVEIS:", "system");
+
+    comandos.forEach(item => {
+        adicionarLinha(item[0] + "  →  " + item[1]);
+    });
+
+    adicionarLinha("--------------------------------------", "success");
+
+    adicionarLinha("TECLAS DO COMPUTADOR:", "system");
+
+    const teclas = [
+        ["A-Z", "Digitar letras."],
+        ["0-9", "Digitar números."],
+        ["ESC", "Cancelar uma ação ou sair de uma interação."],
+        ["F1-F12", "Teclas de funções."],
+        ["ENTER", "Executar um comando."],
+        ["SPACE", "Inserir espaço."],
+        ["BACKSPACE", "Apagar o caractere anterior."],
+        ["DELETE", "Apagar o caractere à frente (neste terminal, não executa comando)."],
+        ["SHIFT", "Alternar maiúsculas e símbolos."],
+        ["CAPS LOCK", "Ativar ou desativar letras maiúsculas."],
+        ["CTRL", "Usar atalhos de teclado."],
+        ["ALT", "Atalhos e funções do sistema."],
+        ["TAB", "Navegar entre elementos."],
+        ["WIN", "Abrir o menu Iniciar."],
+        ["↑ / ↓", "Navegar pelo histórico de comandos."],
+        ["← / →", "Mover o cursor no texto."],
+        ["HOME", "Ir ao início da linha."],
+        ["END", "Ir ao final da linha."],
+        ["PAGE UP", "Subir a visualização."],
+        ["PAGE DOWN", "Descer a visualização."],
+        ["PRINT SCREEN", "Capturar a tela."],
+        ["INSERT", "Alternar modo de inserção."],
+        ["NUM LOCK", "Ativar ou desativar teclado numérico."],
+        ["0-9 (NUMPAD)", "Digitar números pelo teclado numérico."],
+        ["+ - * /", "Operadores matemáticos."],
+        [".", "Separador decimal no teclado numérico."],
+        ["SETAS", "Movimentação e navegação."]
+    ];
+
+    teclas.forEach(item => {
+        adicionarLinha(item[0] + "  →  " + item[1]);
+    });
+
+    adicionarLinha("ATALHOS CTRL:", "system");
+
+    [
+        ["CTRL + A", "Selecionar todo o texto."],
+        ["CTRL + C", "Copiar seleção."],
+        ["CTRL + V", "Colar texto."],
+        ["CTRL + X", "Recortar seleção."],
+        ["CTRL + Z", "Desfazer ação."],
+        ["CTRL + Y", "Refazer ação."],
+        ["CTRL + S", "Salvar (em aplicativos compatíveis)."],
+        ["CTRL + P", "Imprimir (em aplicativos compatíveis)."],
+        ["CTRL + F", "Localizar texto."],
+        ["CTRL + L", "Selecionar a barra de endereço do navegador."],
+        ["CTRL + T", "Abrir nova aba no navegador."],
+        ["CTRL + W", "Fechar aba no navegador."],
+        ["CTRL + SHIFT + ESC", "Abrir Gerenciador de Tarefas no Windows."]
+    ].forEach(item => {
+        adicionarLinha(item[0] + "  →  " + item[1]);
+    });
+
+    adicionarLinha("DICA: experimente os comandos acima!", "success");
+}
+
+// ===============================
+// EXECUTAR COMANDOS
+// ===============================
+
+function executarComando(comando) {
+
+    const cmd = comando.trim().toLowerCase();
+
+    switch(cmd) {
+
+        case "?":
+        case "help":
+            ajuda();
+            break;
+
+        case "clear":
+            terminal.querySelectorAll("p").forEach(p => p.remove());
+            adicionarLinha("Terminal limpo.", "success");
+            break;
+
+        case "whoami":
+            adicionarLinha("Usuário atual: LORRAN", "success");
+            break;
+
+        case "date":
+        case "time":
+            adicionarLinha(new Date().toLocaleString("pt-BR"), "system");
+            break;
+
+        case "about":
+            adicionarLinha("Hacker Kids - Plataforma educativa de informática.");
+            adicionarLinha("Aprenda tecnologia, redes e segurança digital.");
+            break;
+
+        case "version":
+            adicionarLinha("Hacker Kids OS - Versão 1.0.0");
+            break;
+
+        case "neofetch":
+            adicionarLinha("       .----.       HACKER KIDS OS", "success");
+            adicionarLinha("      / .--. \\      Usuário: Lorran");
+            adicionarLinha("     | |    | |     Terminal: HK-SHELL");
+            adicionarLinha("      \\ '--' /      Versão: 1.0.0");
+            adicionarLinha("       '----'       Status: ONLINE");
+            break;
+
+        case "network":
+            adicionarLinha("Iniciando diagnóstico de rede...", "system");
+            adicionarLinha("Interface: Ethernet / Wi-Fi");
+            adicionarLinha("Conectividade: SIMULADA", "warning");
+            adicionarLinha("Status: Ambiente educativo.", "success");
+            break;
+
+        case "ping":
+            adicionarLinha("PING 192.168.1.1 (simulado)", "system");
+            adicionarLinha("Resposta: tempo=12ms");
+            adicionarLinha("Resposta: tempo=15ms");
+            adicionarLinha("Resposta: tempo=11ms");
+            adicionarLinha("Pacotes: 3 enviados, 3 recebidos.");
+            break;
+
+        case "ipconfig":
+            adicionarLinha("Adaptador de rede (dados fictícios):", "system");
+            adicionarLinha("IPv4: 192.168.1.100");
+            adicionarLinha("Gateway: 192.168.1.1");
+            adicionarLinha("Máscara: 255.255.255.0");
+            break;
+
+        case "scan":
+            adicionarLinha("Verificação educativa iniciada...", "system");
+            adicionarLinha("Simulando análise de ambiente...");
+            adicionarLinha("Nenhuma ação real executada.", "success");
+            break;
+
+        case "security":
+            adicionarLinha("DICAS DE SEGURANÇA:", "success");
+            adicionarLinha("1. Nunca compartilhe suas senhas.");
+            adicionarLinha("2. Utilize autenticação em dois fatores.");
+            adicionarLinha("3. Não abra links suspeitos.");
+            adicionarLinha("4. Mantenha seus programas atualizados.");
+            break;
+
+        case "password":
+            adicionarLinha("DICA: utilize senhas longas e únicas.", "success");
+            adicionarLinha("Misture letras, números e símbolos.");
+            adicionarLinha("Nunca utilize sua data de nascimento.");
+            break;
+
+        case "matrix":
+            adicionarLinha("Iniciando simulação MATRIX...", "success");
+            adicionarLinha("01001000 01000001 01000011 01001011");
+            adicionarLinha("01000101 01010010 00100000 01001011");
+            adicionarLinha("01001001 01000100 01010011");
+            adicionarLinha("SIMULAÇÃO CONCLUÍDA.");
+            break;
+
+        case "upgrade":
+            executarUpgrade();
+            break;
+
+        case "logout":
+            usuarioLogado = false;
+            terminalScreen.classList.add("hidden");
+            loginScreen.classList.remove("hidden");
+            document.getElementById("password").value = "";
+            document.getElementById("loginMessage").textContent = "";
+            document.getElementById("username").value = "";
+            document.getElementById("username").focus();
+            break;
+
+        default:
+            adicionarLinha("Comando não encontrado: " + comando, "error");
+            adicionarLinha("Digite ? para consultar os comandos.", "muted");
+    }
+}
+
+// ===============================
+// UPGRADE SIMULADO
+// ===============================
+
 function executarUpgrade() {
-    let msgs = [
-        "Conectando...",
-        "Baixando arquivos...",
-        "Instalando...",
-        "Finalizando...",
-        "Upgrade concluído ✅"
+
+    const mensagens = [
+        "Conectando ao servidor fictício...",
+        "Verificando pacotes...",
+        "Instalando módulos educativos...",
+        "Atualizando interface...",
+        "100% concluído!",
+        "Hacker Kids atualizado com sucesso!"
     ];
 
     let i = 0;
-    let intervalo = setInterval(() => {
-        if (i < msgs.length) {
-            log(msgs[i++]);
+
+    const intervalo = setInterval(() => {
+
+        if (i < mensagens.length) {
+            adicionarLinha(mensagens[i], "success");
+            i++;
         } else {
             clearInterval(intervalo);
         }
-    }, 600);
+
+    }, 700);
 }
 
-// ATUALIZAR INPUT
-function atualizarInput() {
-    inputSpan.textContent = inputAtual;
-}
+// ===============================
+// HISTÓRICO DE COMANDOS
+// ===============================
 
-// EVENTO
-document.addEventListener("keydown", (event) => {
+let historico = [];
+let historicoPosicao = 0;
 
-    let tecla = event.key;
-    let teclaUpper = tecla.toUpperCase();
+input.addEventListener("keydown", function(event) {
 
-    // destacar tecla
-    let keyDiv = document.getElementById("key-" + teclaUpper) 
-              || document.getElementById("key-" + tecla);
+    if (!usuarioLogado) return;
 
-    if (keyDiv) {
-        keyDiv.classList.add("active");
-        setTimeout(() => keyDiv.classList.remove("active"), 200);
+    if (event.key === "Enter") {
+
+        const comando = input.value.trim();
+
+        if (!comando) return;
+
+        adicionarLinha("HACKER-KIDS:~$ " + comando, "command");
+
+        historico.push(comando);
+        historicoPosicao = historico.length;
+
+        input.value = "";
+
+        executarComando(comando);
+
     }
 
-    // digitação
-    if (tecla.length === 1) inputAtual += tecla;
+    else if (event.key === "ArrowUp") {
 
-    if (tecla === " ") {
-        inputAtual += " ";
         event.preventDefault();
-    }
 
-    if (tecla === "Backspace") {
-        inputAtual = inputAtual.slice(0, -1);
-    }
-
-    if (tecla === "Enter") {
-        log(inputAtual);
-
-        if (inputAtual.toUpperCase() === nomeSecreto) {
-            executarUpgrade();
-        } else {
-            log("Comando inválido ❌");
+        if (historicoPosicao > 0) {
+            historicoPosicao--;
+            input.value = historico[historicoPosicao];
         }
 
-        inputAtual = "";
     }
 
-    atualizarInput();
+    else if (event.key === "ArrowDown") {
 
-    // CTRL comandos
-    if (event.ctrlKey) {
-        log("CTRL + " + teclaUpper + " executado 🚀");
+        event.preventDefault();
+
+        if (historicoPosicao < historico.length - 1) {
+            historicoPosicao++;
+            input.value = historico[historicoPosicao];
+        } else {
+            historicoPosicao = historico.length;
+            input.value = "";
+        }
+
     }
+
+    else if (event.key === "Escape") {
+        input.value = "";
+    }
+
 });
+
+// Manter foco no terminal
+terminal.addEventListener("click", () => {
+    if (usuarioLogado) input.focus();
+});
+
 </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
