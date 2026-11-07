@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hacker Kids | Terminal</title>
+<title>Hacker Kids Terminal</title>
 
 <style>
 :root {
@@ -12,6 +13,7 @@
     --dark-green: #003b1c;
     --background: #020503;
     --panel: #050b07;
+    --text: #00ff66;
 }
 
 * {
@@ -20,96 +22,88 @@
 
 body {
     margin: 0;
-    min-height: 100vh;
-    padding: 20px;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
     background: var(--background);
-    color: var(--green);
+    color: var(--text);
     font-family: "Courier New", monospace;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .container {
     width: 100%;
-    max-width: 1100px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.header h1 {
-    font-size: clamp(22px, 4vw, 34px);
-    text-shadow: 0 0 12px var(--green);
-}
-
-.header p {
-    color: #78bd91;
-    font-size: 13px;
-}
-
-.terminal-box {
-    border: 1px solid var(--green);
-    border-radius: 8px;
-    background: var(--panel);
-    box-shadow: 0 0 20px #00ff6622;
-    overflow: hidden;
-}
-
-.terminal-header {
-    background: var(--dark-green);
-    padding: 12px 16px;
+    padding: 10px 18px;
+    background: #030804;
+    border-bottom: 1px solid var(--text);
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: clamp(16px, 2vw, 23px);
+    text-shadow: 0 0 10px var(--text);
+}
+
+.header span {
+    font-size: 11px;
+    color: var(--text);
+}
+
+.terminal-box {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel);
+}
+
+.terminal-header {
+    padding: 9px 15px;
+    background: var(--dark-green);
+    display: flex;
+    justify-content: space-between;
     font-size: 12px;
+    gap: 10px;
 }
 
 .status {
-    color: #00ff66;
+    color: var(--text);
 }
 
 .terminal {
-    height: min(65vh, 600px);
-    min-height: 300px;
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 20px;
-    text-align: left;
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.5;
     overflow-wrap: anywhere;
+    scroll-behavior: smooth;
 }
 
 .terminal p {
-    margin: 4px 0;
+    margin: 3px 0;
+    white-space: pre-wrap;
 }
 
-.system {
-    color: #00cfff;
-}
-
-.error {
-    color: #ff5555;
-}
-
-.warning {
-    color: #ffff55;
-}
-
-.success {
-    color: #00ff66;
-}
-
-.muted {
-    color: #779080;
-}
-
-.command {
-    color: #ffffff;
-}
+.system { color: #00cfff; }
+.error { color: #ff5555; }
+.warning { color: #ffff55; }
+.success { color: var(--text); }
+.muted { opacity: 0.65; }
+.command { color: #ffffff; }
 
 .input-line {
     display: flex;
@@ -119,100 +113,90 @@ body {
 }
 
 .prompt {
-    color: var(--green);
+    color: var(--text);
     white-space: nowrap;
 }
 
 #commandInput {
+    flex: 1;
+    min-width: 0;
     background: transparent;
     border: none;
     outline: none;
-    color: white;
+    color: var(--text);
     font-family: inherit;
     font-size: 14px;
-    width: 100%;
-    caret-color: var(--green);
+    caret-color: var(--text);
 }
 
 .footer {
+    padding: 7px;
     text-align: center;
-    margin-top: 15px;
-    color: #54715d;
-    font-size: 11px;
+    background: #030804;
+    border-top: 1px solid #163b24;
+    color: var(--text);
+    font-size: 10px;
 }
 
+/* LOGIN */
+
 #loginScreen {
-    margin: 20px auto;
-    max-width: 400px;
-    border: 1px solid var(--green);
+    width: min(400px, calc(100% - 30px));
+    margin: auto;
     padding: 25px;
-    border-radius: 8px;
+    border: 1px solid var(--text);
     background: var(--panel);
+    box-shadow: 0 0 20px #00ff6622;
+}
+
+#loginScreen h2 {
+    text-align: center;
 }
 
 #loginScreen input {
     width: 100%;
     padding: 12px;
-    margin: 8px 0;
+    margin: 7px 0;
     background: #000;
     border: 1px solid var(--dark-green);
-    color: var(--green);
+    color: var(--text);
     font-family: inherit;
-    outline: none;
 }
 
 #loginScreen button {
     width: 100%;
     padding: 12px;
     margin-top: 10px;
-    color: black;
-    background: var(--green);
+    background: var(--text);
     border: none;
     font-weight: bold;
     cursor: pointer;
-    font-family: inherit;
 }
 
 .hidden {
     display: none !important;
 }
 
-@keyframes blink {
-    50% { opacity: 0; }
-}
-
-.cursor {
-    animation: blink 1s infinite;
-}
-
 @media(max-width: 600px) {
-    body {
-        padding: 8px;
-        align-items: flex-start;
-    }
-
     .header {
-        margin-bottom: 12px;
+        padding: 10px;
     }
 
     .terminal {
-        height: 65vh;
-        min-height: 350px;
         padding: 12px;
         font-size: 12px;
     }
 
     .terminal-header {
         font-size: 10px;
-        padding: 10px;
     }
 
     #commandInput {
         font-size: 16px;
     }
 
-    #loginScreen {
-        padding: 18px;
+    .prompt {
+        font-size: 11px;
     }
 }
 </style>
@@ -224,69 +208,55 @@ body {
 
     <header class="header">
         <h1>💻 HACKER KIDS</h1>
-        <p>AMBIENTE DE TREINAMENTO DIGITAL</p>
+        <span>EDUCATIONAL TERMINAL v1.1</span>
     </header>
 
     <!-- LOGIN -->
+
     <div id="loginScreen">
 
-        <h3>🔐 AUTENTICAÇÃO DO SISTEMA</h3>
+        <h2>🔐 SYSTEM LOGIN</h2>
 
-        <p class="muted">Identifique-se para continuar.</p>
+        <p>Autenticação de usuário</p>
 
-        <input
-            type="text"
-            id="username"
-            placeholder="Login"
-            autocomplete="username"
-        >
+        <input id="username" placeholder="Login" autocomplete="username">
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Senha"
-            autocomplete="current-password"
-        >
+        <input id="password" type="password"
+        placeholder="Senha" autocomplete="current-password">
 
-        <button onclick="login()">ENTRAR NO SISTEMA</button>
+        <button onclick="login()">ACESSAR TERMINAL</button>
 
         <p id="loginMessage" class="error"></p>
 
-        <p class="muted">
-            Acesso demonstrativo: lorran / kids2026
-        </p>
+        <small>Login: lorran | Senha: kids2026</small>
 
     </div>
 
     <!-- TERMINAL -->
-    <div id="terminalScreen" class="hidden">
 
-        <div class="terminal-box">
+    <div id="terminalScreen" class="terminal-box hidden">
 
-            <div class="terminal-header">
-                <span>HACKER-KIDS@SYSTEM:~</span>
-                <span class="status">● ONLINE</span>
-            </div>
+        <div class="terminal-header">
+            <span>HACKER-KIDS@SYSTEM:~</span>
+            <span class="status">● ONLINE</span>
+        </div>
 
-            <div class="terminal" id="terminal">
+        <div class="terminal" id="terminal">
 
-                <p class="system">Inicializando sistema...</p>
-                <p class="success">Sistema carregado com sucesso.</p>
-                <p>Bem-vindo ao Hacker Kids!</p>
-                <p class="muted">Digite ? para consultar os comandos.</p>
+            <p class="system">Inicializando sistema...</p>
 
-                <div class="input-line">
-                    <span class="prompt">HACKER-KIDS:~$</span>
-                    <input
-                        type="text"
-                        id="commandInput"
-                        autocomplete="off"
-                        autofocus
-                        spellcheck="false"
-                        aria-label="Digite um comando"
-                    >
-                </div>
+            <p class="success">Sistema carregado.</p>
 
+            <p>Bem-vindo ao Hacker Kids!</p>
+
+            <p class="muted">Digite ? para consultar os comandos.</p>
+
+            <div class="input-line">
+                <span class="prompt">HACKER-KIDS:~$</span>
+
+                <input id="commandInput"
+                autocomplete="off"
+                spellcheck="false">
             </div>
 
         </div>
@@ -294,30 +264,30 @@ body {
     </div>
 
     <footer class="footer">
-        ADPS TECH SOLUTIONS | HACKER KIDS EDUCATIONAL PROJECT
+        ADPS TECH SOLUTIONS | HACKER KIDS
     </footer>
 
 </div>
 
 <script>
 
-// ===============================
-// CONFIGURAÇÃO DO SISTEMA
-// ===============================
+// ===================================
+// CONFIGURAÇÕES
+// ===================================
 
 const LOGIN = "lorran";
 const SENHA = "kids2026";
 
-const loginScreen = document.getElementById("loginScreen");
-const terminalScreen = document.getElementById("terminalScreen");
 const terminal = document.getElementById("terminal");
 const input = document.getElementById("commandInput");
 
 let usuarioLogado = false;
+let historico = [];
+let historicoPosicao = 0;
 
-// ===============================
+// ===================================
 // LOGIN
-// ===============================
+// ===================================
 
 function login() {
 
@@ -328,27 +298,26 @@ function login() {
 
         usuarioLogado = true;
 
-        loginScreen.classList.add("hidden");
-        terminalScreen.classList.remove("hidden");
+        document.getElementById("loginScreen")
+        .classList.add("hidden");
+
+        document.getElementById("terminalScreen")
+        .classList.remove("hidden");
 
         adicionarLinha("Autenticação aprovada!", "success");
         adicionarLinha("Usuário: " + user, "system");
-        adicionarLinha("Bem-vindo ao terminal Hacker Kids.", "success");
-        adicionarLinha("Digite ? para visualizar os comandos.", "muted");
+        adicionarLinha("Hacker Kids Terminal v1.1", "success");
+        adicionarLinha("Digite ? para consultar os comandos.", "muted");
 
         input.focus();
 
     } else {
 
-        document.getElementById("loginMessage").textContent =
-            "Login ou senha incorretos!";
+        document.getElementById("loginMessage")
+        .textContent = "Login ou senha incorretos!";
 
     }
 }
-
-// ===============================
-// ENTER NO LOGIN
-// ===============================
 
 document.getElementById("password").addEventListener("keydown", e => {
     if (e.key === "Enter") login();
@@ -360,15 +329,16 @@ document.getElementById("username").addEventListener("keydown", e => {
     }
 });
 
-// ===============================
-// TERMINAL
-// ===============================
+// ===================================
+// SAÍDA DO TERMINAL
+// ===================================
 
 function adicionarLinha(texto, classe = "") {
 
     const p = document.createElement("p");
 
     p.textContent = texto;
+
     if (classe) p.className = classe;
 
     const linha = terminal.querySelector(".input-line");
@@ -378,109 +348,230 @@ function adicionarLinha(texto, classe = "") {
     terminal.scrollTop = terminal.scrollHeight;
 }
 
-// ===============================
-// AJUDA PRINCIPAL
-// ===============================
+// ===================================
+// NEOfETCH
+// ===================================
+
+function neofetch() {
+
+    const agora = new Date();
+
+    const info = [
+        "Usuário: Lorran",
+        "Sistema: Hacker Kids OS",
+        "Versão: 1.1.0",
+        "Terminal: HK-SHELL",
+        "Arquitetura: Web Browser",
+        "Ambiente: Educacional",
+        "Linguagem: HTML / CSS / JavaScript",
+        "Navegador: " + navigator.userAgent,
+        "Resolução: " + screen.width + "x" + screen.height,
+        "Data: " + agora.toLocaleDateString("pt-BR"),
+        "Hora: " + agora.toLocaleTimeString("pt-BR"),
+        "Status: ONLINE"
+    ];
+
+    const arte = [
+        "       .----.       ",
+        "      / .--. \\      ",
+        "     | |    | |     ",
+        "      \\ '--' /      ",
+        "       '----'       "
+    ];
+
+    adicionarLinha(" ");
+
+    const max = Math.max(arte.length, info.length);
+
+    for (let i = 0; i < max; i++) {
+
+        const esquerda = arte[i] || "                    ";
+        const direita = info[i] || "";
+
+        adicionarLinha(esquerda + "   " + direita, "success");
+    }
+
+    adicionarLinha(" ");
+    adicionarLinha("HACKER KIDS - EDUCATIONAL SYSTEM", "system");
+}
+
+// ===================================
+// ALTERAR CORES
+// ===================================
+
+function mudarCor(cor) {
+
+    const cores = {
+
+        green: "#00ff66",
+        red: "#ff3333",
+        blue: "#3399ff",
+        cyan: "#00ffff",
+        purple: "#bf5fff",
+        yellow: "#ffff00",
+        white: "#ffffff",
+        orange: "#ff9900",
+        pink: "#ff69b4"
+
+    };
+
+    if (cor === "reset") {
+
+        document.documentElement.style.setProperty("--text", "#00ff66");
+        document.documentElement.style.setProperty("--dark-green", "#003b1c");
+
+        adicionarLinha("Cor original restaurada.", "success");
+        return;
+    }
+
+    if (!cores[cor]) {
+
+        adicionarLinha("Cor não encontrada: " + cor, "error");
+        adicionarLinha("Utilize: color list", "muted");
+        return;
+    }
+
+    document.documentElement.style.setProperty("--text", cores[cor]);
+
+    document.documentElement.style.setProperty(
+        "--dark-green",
+        cores[cor] + "33"
+    );
+
+    adicionarLinha("Cor do terminal alterada para " + cor + ".", "success");
+}
+
+// ===================================
+// LISTAR CORES
+// ===================================
+
+function listarCores() {
+
+    adicionarLinha("CORES DISPONÍVEIS:", "system");
+
+    [
+        "green",
+        "red",
+        "blue",
+        "cyan",
+        "purple",
+        "yellow",
+        "white",
+        "orange",
+        "pink",
+        "reset"
+    ].forEach(cor => {
+
+        adicionarLinha("color " + cor);
+
+    });
+}
+
+// ===================================
+// CENTRAL DE AJUDA
+// ===================================
 
 function ajuda() {
 
+    adicionarLinha("========== HACKER KIDS HELP ==========", "success");
+
+    adicionarLinha("COMANDOS DO SISTEMA:", "system");
+
     const comandos = [
-        ["?", "Exibe todos os comandos e funções do teclado."],
-        ["help", "Mostra a central de ajuda."],
-        ["clear", "Limpa o terminal."],
-        ["whoami", "Mostra o usuário conectado."],
-        ["date", "Exibe a data e hora do computador."],
-        ["time", "Exibe o horário atual."],
-        ["about", "Informações sobre o Hacker Kids."],
-        ["version", "Versão do sistema."],
-        ["neofetch", "Exibe informações simuladas do sistema."],
-        ["network", "Simula um diagnóstico de rede."],
-        ["ping", "Simula um teste de conectividade."],
-        ["ipconfig", "Exibe um IP fictício de laboratório."],
-        ["scan", "Simula uma verificação educativa."],
-        ["security", "Exibe dicas de segurança digital."],
-        ["password", "Exibe dicas sobre senhas seguras."],
-        ["matrix", "Inicia uma animação textual."],
-        ["upgrade", "Executa uma atualização simulada."],
-        ["logout", "Encerra a sessão."]
+        ["?", "Ajuda completa e teclas do computador"],
+        ["help", "Central de ajuda"],
+        ["clear", "Limpar terminal"],
+        ["whoami", "Identificar usuário"],
+        ["date", "Mostrar data e hora"],
+        ["about", "Sobre o projeto"],
+        ["version", "Versão do sistema"],
+        ["neofetch", "Informações e identidade visual do sistema"],
+        ["network", "Diagnóstico de rede simulado"],
+        ["ping", "Teste de conectividade simulado"],
+        ["ipconfig", "Informações fictícias de IP"],
+        ["scan", "Verificação educativa simulada"],
+        ["security", "Dicas de segurança"],
+        ["password", "Dicas sobre senhas"],
+        ["matrix", "Efeito Matrix"],
+        ["upgrade", "Atualização simulada"],
+        ["color list", "Listar cores disponíveis"],
+        ["color green", "Alterar cor do terminal"],
+        ["color reset", "Restaurar cor original"],
+        ["logout", "Sair do sistema"]
     ];
 
-    adicionarLinha("========== CENTRAL DE AJUDA ==========", "success");
-
-    adicionarLinha("COMANDOS DISPONÍVEIS:", "system");
-
     comandos.forEach(item => {
-        adicionarLinha(item[0] + "  →  " + item[1]);
+        adicionarLinha(item[0] + " → " + item[1]);
     });
 
-    adicionarLinha("--------------------------------------", "success");
-
+    adicionarLinha(" ");
     adicionarLinha("TECLAS DO COMPUTADOR:", "system");
 
     const teclas = [
-        ["A-Z", "Digitar letras."],
-        ["0-9", "Digitar números."],
-        ["ESC", "Cancelar uma ação ou sair de uma interação."],
-        ["F1-F12", "Teclas de funções."],
-        ["ENTER", "Executar um comando."],
-        ["SPACE", "Inserir espaço."],
-        ["BACKSPACE", "Apagar o caractere anterior."],
-        ["DELETE", "Apagar o caractere à frente (neste terminal, não executa comando)."],
-        ["SHIFT", "Alternar maiúsculas e símbolos."],
-        ["CAPS LOCK", "Ativar ou desativar letras maiúsculas."],
-        ["CTRL", "Usar atalhos de teclado."],
-        ["ALT", "Atalhos e funções do sistema."],
-        ["TAB", "Navegar entre elementos."],
-        ["WIN", "Abrir o menu Iniciar."],
-        ["↑ / ↓", "Navegar pelo histórico de comandos."],
-        ["← / →", "Mover o cursor no texto."],
-        ["HOME", "Ir ao início da linha."],
-        ["END", "Ir ao final da linha."],
-        ["PAGE UP", "Subir a visualização."],
-        ["PAGE DOWN", "Descer a visualização."],
-        ["PRINT SCREEN", "Capturar a tela."],
-        ["INSERT", "Alternar modo de inserção."],
-        ["NUM LOCK", "Ativar ou desativar teclado numérico."],
-        ["0-9 (NUMPAD)", "Digitar números pelo teclado numérico."],
-        ["+ - * /", "Operadores matemáticos."],
-        [".", "Separador decimal no teclado numérico."],
-        ["SETAS", "Movimentação e navegação."]
+        ["A-Z", "Digitar letras"],
+        ["0-9", "Digitar números"],
+        ["F1-F12", "Teclas de função"],
+        ["ENTER", "Executar comandos"],
+        ["SPACE", "Inserir espaço"],
+        ["BACKSPACE", "Apagar caractere anterior"],
+        ["DELETE", "Apagar caractere à frente"],
+        ["SHIFT", "Alternar maiúsculas e símbolos"],
+        ["CAPS LOCK", "Ativar maiúsculas"],
+        ["CTRL", "Atalhos de teclado"],
+        ["ALT", "Atalhos do sistema"],
+        ["TAB", "Navegar entre elementos"],
+        ["WIN", "Abrir menu Iniciar"],
+        ["ESC", "Cancelar ou sair de uma interação"],
+        ["↑ / ↓", "Navegar no histórico"],
+        ["← / →", "Mover cursor"],
+        ["HOME", "Início da linha"],
+        ["END", "Final da linha"],
+        ["PAGE UP / DOWN", "Navegar na tela"],
+        ["PRINT SCREEN", "Capturar tela"],
+        ["INSERT", "Alternar modo de inserção"],
+        ["NUM LOCK", "Ativar teclado numérico"],
+        ["NUMPAD", "Teclado numérico"],
+        ["+ - * /", "Operações matemáticas"]
     ];
 
     teclas.forEach(item => {
-        adicionarLinha(item[0] + "  →  " + item[1]);
+        adicionarLinha(item[0] + " → " + item[1]);
     });
 
     adicionarLinha("ATALHOS CTRL:", "system");
 
-    [
-        ["CTRL + A", "Selecionar todo o texto."],
-        ["CTRL + C", "Copiar seleção."],
-        ["CTRL + V", "Colar texto."],
-        ["CTRL + X", "Recortar seleção."],
-        ["CTRL + Z", "Desfazer ação."],
-        ["CTRL + Y", "Refazer ação."],
-        ["CTRL + S", "Salvar (em aplicativos compatíveis)."],
-        ["CTRL + P", "Imprimir (em aplicativos compatíveis)."],
-        ["CTRL + F", "Localizar texto."],
-        ["CTRL + L", "Selecionar a barra de endereço do navegador."],
-        ["CTRL + T", "Abrir nova aba no navegador."],
-        ["CTRL + W", "Fechar aba no navegador."],
-        ["CTRL + SHIFT + ESC", "Abrir Gerenciador de Tarefas no Windows."]
-    ].forEach(item => {
-        adicionarLinha(item[0] + "  →  " + item[1]);
+    const atalhos = [
+        ["CTRL + A", "Selecionar tudo"],
+        ["CTRL + C", "Copiar"],
+        ["CTRL + V", "Colar"],
+        ["CTRL + X", "Recortar"],
+        ["CTRL + Z", "Desfazer"],
+        ["CTRL + Y", "Refazer"],
+        ["CTRL + S", "Salvar"],
+        ["CTRL + P", "Imprimir"],
+        ["CTRL + F", "Localizar"],
+        ["CTRL + L", "Barra de endereço"],
+        ["CTRL + T", "Nova aba"],
+        ["CTRL + W", "Fechar aba"],
+        ["CTRL + SHIFT + ESC", "Gerenciador de tarefas Windows"]
+    ];
+
+    atalhos.forEach(item => {
+        adicionarLinha(item[0] + " → " + item[1]);
     });
 
-    adicionarLinha("DICA: experimente os comandos acima!", "success");
+    adicionarLinha("Digite um comando e pressione ENTER.", "success");
 }
 
-// ===============================
+// ===================================
 // EXECUTAR COMANDOS
-// ===============================
+// ===================================
 
 function executarComando(comando) {
 
-    const cmd = comando.trim().toLowerCase();
+    const partes = comando.trim().toLowerCase().split(/\s+/);
+    const cmd = partes[0];
+    const argumento = partes[1];
 
     switch(cmd) {
 
@@ -499,32 +590,42 @@ function executarComando(comando) {
             break;
 
         case "date":
-        case "time":
             adicionarLinha(new Date().toLocaleString("pt-BR"), "system");
             break;
 
         case "about":
-            adicionarLinha("Hacker Kids - Plataforma educativa de informática.");
-            adicionarLinha("Aprenda tecnologia, redes e segurança digital.");
+            adicionarLinha("Hacker Kids - Plataforma educativa.");
+            adicionarLinha("Aprendizado de informática, redes e tecnologia.");
             break;
 
         case "version":
-            adicionarLinha("Hacker Kids OS - Versão 1.0.0");
+            adicionarLinha("Hacker Kids OS v1.1.0");
             break;
 
         case "neofetch":
-            adicionarLinha("       .----.       HACKER KIDS OS", "success");
-            adicionarLinha("      / .--. \\      Usuário: Lorran");
-            adicionarLinha("     | |    | |     Terminal: HK-SHELL");
-            adicionarLinha("      \\ '--' /      Versão: 1.0.0");
-            adicionarLinha("       '----'       Status: ONLINE");
+            neofetch();
+            break;
+
+        case "color":
+
+            if (!argumento) {
+                adicionarLinha("Uso: color [nome]", "warning");
+                adicionarLinha("Exemplo: color cyan");
+            }
+            else if (argumento === "list") {
+                listarCores();
+            }
+            else {
+                mudarCor(argumento);
+            }
+
             break;
 
         case "network":
-            adicionarLinha("Iniciando diagnóstico de rede...", "system");
+            adicionarLinha("Iniciando diagnóstico simulado...", "system");
             adicionarLinha("Interface: Ethernet / Wi-Fi");
             adicionarLinha("Conectividade: SIMULADA", "warning");
-            adicionarLinha("Status: Ambiente educativo.", "success");
+            adicionarLinha("Ambiente educativo.", "success");
             break;
 
         case "ping":
@@ -532,20 +633,20 @@ function executarComando(comando) {
             adicionarLinha("Resposta: tempo=12ms");
             adicionarLinha("Resposta: tempo=15ms");
             adicionarLinha("Resposta: tempo=11ms");
-            adicionarLinha("Pacotes: 3 enviados, 3 recebidos.");
+            adicionarLinha("3 pacotes enviados / 3 recebidos.");
             break;
 
         case "ipconfig":
-            adicionarLinha("Adaptador de rede (dados fictícios):", "system");
             adicionarLinha("IPv4: 192.168.1.100");
             adicionarLinha("Gateway: 192.168.1.1");
             adicionarLinha("Máscara: 255.255.255.0");
+            adicionarLinha("Dados fictícios de laboratório.", "warning");
             break;
 
         case "scan":
             adicionarLinha("Verificação educativa iniciada...", "system");
-            adicionarLinha("Simulando análise de ambiente...");
-            adicionarLinha("Nenhuma ação real executada.", "success");
+            adicionarLinha("Simulando análise do ambiente...");
+            adicionarLinha("Nenhuma operação real executada.", "success");
             break;
 
         case "security":
@@ -553,17 +654,17 @@ function executarComando(comando) {
             adicionarLinha("1. Nunca compartilhe suas senhas.");
             adicionarLinha("2. Utilize autenticação em dois fatores.");
             adicionarLinha("3. Não abra links suspeitos.");
-            adicionarLinha("4. Mantenha seus programas atualizados.");
+            adicionarLinha("4. Atualize seus programas.");
             break;
 
         case "password":
-            adicionarLinha("DICA: utilize senhas longas e únicas.", "success");
+            adicionarLinha("Utilize senhas longas e únicas.", "success");
             adicionarLinha("Misture letras, números e símbolos.");
-            adicionarLinha("Nunca utilize sua data de nascimento.");
+            adicionarLinha("Evite informações pessoais.");
             break;
 
         case "matrix":
-            adicionarLinha("Iniciando simulação MATRIX...", "success");
+            adicionarLinha("INICIANDO MATRIX...", "success");
             adicionarLinha("01001000 01000001 01000011 01001011");
             adicionarLinha("01000101 01010010 00100000 01001011");
             adicionarLinha("01001001 01000100 01010011");
@@ -576,11 +677,11 @@ function executarComando(comando) {
 
         case "logout":
             usuarioLogado = false;
-            terminalScreen.classList.add("hidden");
-            loginScreen.classList.remove("hidden");
+            document.getElementById("terminalScreen").classList.add("hidden");
+            document.getElementById("loginScreen").classList.remove("hidden");
+            document.getElementById("username").value = "";
             document.getElementById("password").value = "";
             document.getElementById("loginMessage").textContent = "";
-            document.getElementById("username").value = "";
             document.getElementById("username").focus();
             break;
 
@@ -590,19 +691,19 @@ function executarComando(comando) {
     }
 }
 
-// ===============================
+// ===================================
 // UPGRADE SIMULADO
-// ===============================
+// ===================================
 
 function executarUpgrade() {
 
     const mensagens = [
         "Conectando ao servidor fictício...",
         "Verificando pacotes...",
-        "Instalando módulos educativos...",
+        "Instalando módulos...",
         "Atualizando interface...",
         "100% concluído!",
-        "Hacker Kids atualizado com sucesso!"
+        "Hacker Kids atualizado!"
     ];
 
     let i = 0;
@@ -610,8 +711,7 @@ function executarUpgrade() {
     const intervalo = setInterval(() => {
 
         if (i < mensagens.length) {
-            adicionarLinha(mensagens[i], "success");
-            i++;
+            adicionarLinha(mensagens[i++], "success");
         } else {
             clearInterval(intervalo);
         }
@@ -619,12 +719,9 @@ function executarUpgrade() {
     }, 700);
 }
 
-// ===============================
-// HISTÓRICO DE COMANDOS
-// ===============================
-
-let historico = [];
-let historicoPosicao = 0;
+// ===================================
+// HISTÓRICO E TECLADO
+// ===================================
 
 input.addEventListener("keydown", function(event) {
 
@@ -644,7 +741,6 @@ input.addEventListener("keydown", function(event) {
         input.value = "";
 
         executarComando(comando);
-
     }
 
     else if (event.key === "ArrowUp") {
@@ -655,7 +751,6 @@ input.addEventListener("keydown", function(event) {
             historicoPosicao--;
             input.value = historico[historicoPosicao];
         }
-
     }
 
     else if (event.key === "ArrowDown") {
@@ -669,7 +764,6 @@ input.addEventListener("keydown", function(event) {
             historicoPosicao = historico.length;
             input.value = "";
         }
-
     }
 
     else if (event.key === "Escape") {
@@ -678,7 +772,8 @@ input.addEventListener("keydown", function(event) {
 
 });
 
-// Manter foco no terminal
+// Foco no terminal
+
 terminal.addEventListener("click", () => {
     if (usuarioLogado) input.focus();
 });
@@ -688,6 +783,3 @@ terminal.addEventListener("click", () => {
 </body>
 </html>
 
-
-</body>
-</html>
